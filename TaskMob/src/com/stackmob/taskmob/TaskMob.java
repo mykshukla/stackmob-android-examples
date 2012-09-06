@@ -36,8 +36,8 @@ public class TaskMob extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		StackMobCommon.init(getApplicationContext(), "5c29caee-71f9-4c64-9cf8-fb10a11841f3", "YOUR_API_SECRET_HERE", 0);
-		StackMob.getLogger().setLogging(true);
+		StackMobCommon.init(getApplicationContext(), 0, "5c29caee-71f9-4c64-9cf8-fb10a11841f3");
+		StackMob.getStackMob().getSession().getLogger().setLogging(true);
 		addTaskListButton = (Button) this.findViewById(R.id.add_tasklist_button);
 		addTaskListName = (TextView) this.findViewById(R.id.add_tasklist_text);
 		addTaskListButton.setOnClickListener(new OnClickListener() {

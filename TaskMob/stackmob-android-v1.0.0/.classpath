@@ -9,7 +9,7 @@
 	<classpathentry exported="true" kind="lib" path="assets/signpost-core-1.2.1.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="assets/gson-2.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="assets/inneractiveAdSDK-v3.1.2-S.jar"/>
-	<classpathentry exported="true" kind="lib" path="assets/stackmob-java-client-sdk-0.5.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="assets/stackmob-java-client-sdk-1.0.0-SNAPSHOT.jar"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

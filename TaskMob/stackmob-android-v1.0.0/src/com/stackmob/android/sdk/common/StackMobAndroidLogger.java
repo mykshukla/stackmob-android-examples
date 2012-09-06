@@ -1,6 +1,6 @@
 package com.stackmob.android.sdk.common;
 
-import com.stackmob.sdk.api.StackMobLogger;
+import com.stackmob.sdk.util.StackMobLogger;
 import android.util.Log;
 
 
