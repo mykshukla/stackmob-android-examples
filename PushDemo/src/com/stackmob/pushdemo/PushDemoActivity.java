@@ -50,30 +50,21 @@ import com.inneractive.api.ads.InneractiveAd.IaAdType;
 import com.inneractive.api.ads.InneractiveAd.IaOptionalParams;
 
 
-public class AndroidStarterActivity extends Activity {
+public class PushDemoActivity extends Activity {
 	
 	public static String SENDER_ID = "YOUR_SENDER_ID_HERE";
 	private StackMob stackmob;
 	private StackMobUser user;
-	private static final String TAG = AndroidStarterActivity.class.getCanonicalName();
+	private static final String TAG = PushDemoActivity.class.getCanonicalName();
 	private final StackMobCallback standardToastCallback = new StackMobCallback() {
 		@Override public void success(String responseBody) {
-			threadAgnosticToast(AndroidStarterActivity.this, "response: " + responseBody, Toast.LENGTH_SHORT);
+			threadAgnosticToast(PushDemoActivity.this, "response: " + responseBody, Toast.LENGTH_SHORT);
 			Log.i(TAG, "request succeeded with " + responseBody);
 		}
 		@Override public void failure(StackMobException e) {
-			threadAgnosticToast(AndroidStarterActivity.this, "error: " + e.getMessage(), Toast.LENGTH_SHORT);
+			threadAgnosticToast(PushDemoActivity.this, "error: " + e.getMessage(), Toast.LENGTH_SHORT);
 			Log.i(TAG, "request had exception " + e.getMessage());
 		}
-	};
-	
-	private BroadcastReceiver inneractiveMessageReceiver = new BroadcastReceiver() {
-		@Override
-		public void onReceive(Context context, Intent intent) { 
-			String message = intent.getStringExtra("message");
-			Toast.makeText(getApplicationContext(), message, 5);
-		}
-
 	};
 	
     /** Called when the activity is first created. */
@@ -117,7 +108,7 @@ public class AndroidStarterActivity extends Activity {
 			user.registerForPush(new StackMobPushToken(getRegistrationIDHolder().getID()), standardToastCallback);
 		}
 		catch(	Exception e) {
-			threadAgnosticToast(AndroidStarterActivity.this, "no registration ID currently stored", Toast.LENGTH_SHORT);
+			threadAgnosticToast(PushDemoActivity.this, "no registration ID currently stored", Toast.LENGTH_SHORT);
 		}
 		
 	}
@@ -130,20 +121,20 @@ public class AndroidStarterActivity extends Activity {
 	
 	public void getRegTokenClick(View w) {
 		try {
-			threadAgnosticToast(AndroidStarterActivity.this, getRegistrationIDHolder().getID(), Toast.LENGTH_SHORT);
+			threadAgnosticToast(PushDemoActivity.this, getRegistrationIDHolder().getID(), Toast.LENGTH_SHORT);
 		}
 		catch(PushRegistrationIDHolder.NoStoredRegistrationIDException e) {
-			threadAgnosticToast(AndroidStarterActivity.this, "no registration ID currently stored", Toast.LENGTH_SHORT);
+			threadAgnosticToast(PushDemoActivity.this, "no registration ID currently stored", Toast.LENGTH_SHORT);
 		}
 	}
 	
 	public void forceGetRegTokenClick(View w) {
 		registerForPush();
-		threadAgnosticToast(AndroidStarterActivity.this, "sent intent to get reg ID", Toast.LENGTH_SHORT);
+		threadAgnosticToast(PushDemoActivity.this, "sent intent to get reg ID", Toast.LENGTH_SHORT);
 	}
 	
 	private PushRegistrationIDHolder getRegistrationIDHolder() {
-		return new PushRegistrationIDHolder(AndroidStarterActivity.this);
+		return new PushRegistrationIDHolder(PushDemoActivity.this);
 	}
 	
 	private void registerForPush() {

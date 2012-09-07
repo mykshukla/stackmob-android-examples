@@ -17,7 +17,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 	private String regId;
 
 	public GCMIntentService() {
-		super(AndroidStarterActivity.SENDER_ID);
+		super(PushDemoActivity.SENDER_ID);
 	}
 
 	@Override
