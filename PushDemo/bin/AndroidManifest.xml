@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.stackmob.android"
+    package="com.stackmob.pushdemo"
     android:versionCode="1"
     android:versionName="1.0">
     
@@ -29,7 +29,7 @@
   			<intent-filter>
     			<action android:name="com.google.android.c2dm.intent.RECEIVE" />
     			<action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-    			<category android:name="com.stackmob.android" />
+    			<category android:name="com.stackmob.pushdemo" />
   			</intent-filter>
 		</receiver>
 		
