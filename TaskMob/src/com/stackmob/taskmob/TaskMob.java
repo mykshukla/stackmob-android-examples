@@ -7,13 +7,16 @@ import com.stackmob.taskmob.R;
 import com.stackmob.android.sdk.common.StackMobAndroid;
 import com.stackmob.sdk.api.StackMob;
 import com.stackmob.sdk.api.StackMobOptions;
+import com.stackmob.sdk.api.StackMobSession;
 import com.stackmob.sdk.callback.StackMobCallback;
 import com.stackmob.sdk.callback.StackMobQueryCallback;
 import com.stackmob.sdk.exception.StackMobException;
+import com.stackmob.sdk.util.StackMobLogger;
 
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -55,20 +58,16 @@ public class TaskMob extends ListActivity {
 		   
 		    	i.putExtra(TASKLIST_INDEX, pos);
 		    	i.putExtra(TASKLIST_KEY, adapter.getItem(pos).toJson(StackMobOptions.depthOf(1)));
-		    	startActivityForResult(i, 1);
+		    	startActivityForResult(i, 0);
 		    }
 		});
 		
 		if(StackMob.getStackMob().isLoggedIn()) {
-			User.getLoggedInUser(User.class, new StackMobQueryCallback<User>() {
+			User.getLoggedInUser(User.class, StackMobOptions.depthOf(2), new StackMobQueryCallback<User>() {
 				@Override
 				public void success(List<User> list) {
-					if(list.size() > 0) {
-						user = list.get(0);
-						loadTasks();
-					} else {
-						doLogin();
-					}
+					user = list.get(0);
+					initAdapter();
 				}
 
 				@Override
@@ -83,39 +82,22 @@ public class TaskMob extends ListActivity {
 	
 	private void doLogin() {
     	Intent i = new Intent(getApplicationContext(), LoginActivity.class);
-    	startActivityForResult(i, 0);
+    	startActivityForResult(i, 1);
 	}
 
 	private void addTaskList(String name) {
 		TaskList newList = new TaskList(name);
 		user.getTaskLists().add(newList);
-		user.save();
-		//adapter.add(newList);
+		user.save(StackMobOptions.depthOf(2));
 		adapter.notifyDataSetChanged();
 	}
-
-	private void loadTasks() {
-		user.fetch(StackMobOptions.depthOf(2), new StackMobCallback() {
-			
-			@Override
-			public void success(String arg0) {
-				initAdapter(user.getTaskLists());
-			}
-			
-			@Override
-			public void failure(StackMobException e) {
-				Toast.makeText(getApplicationContext(), "Error loading data " + e.getMessage(), Toast.LENGTH_LONG).show();
-				
-			}
-		});
-	}
 	
-	private void initAdapter(final List<TaskList> taskLists) {
+	private void initAdapter() {
 		//StackMobCallbacks come back on a different thread
 		runOnUiThread(new Runnable() {	
 			@Override
 			public void run() {
-				adapter = new TaskListAdapter(getApplicationContext(), R.layout.tasklistrow, taskLists);
+				adapter = new TaskListAdapter(getApplicationContext(), R.layout.tasklistrow, user.getTaskLists());
 				setListAdapter(adapter);
 				adapter.notifyDataSetChanged();
 			}
@@ -131,10 +113,10 @@ public class TaskMob extends ListActivity {
 					adapter.getItem(data.getIntExtra(TASKLIST_INDEX, 0)).fillFromJson(data.getStringExtra(TASKLIST_RETURN_KEY));
 					adapter.notifyDataSetChanged();
 				}
-			} else if(requestCode == 1) {
+			} else {
 				if(data.getExtras().containsKey(LOGGED_IN_USER)) {
 					user = User.newFromJson(User.class, data.getStringExtra(LOGGED_IN_USER));
-					loadTasks();
+					initAdapter();
 				}
 			}
 		} catch (StackMobException e) {

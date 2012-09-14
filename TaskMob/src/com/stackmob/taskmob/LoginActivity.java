@@ -1,6 +1,7 @@
 package com.stackmob.taskmob;
 
 import com.stackmob.sdk.api.StackMob;
+import com.stackmob.sdk.api.StackMobOptions;
 import com.stackmob.sdk.api.StackMobSession;
 import com.stackmob.sdk.callback.StackMobCallback;
 import com.stackmob.sdk.exception.StackMobException;
@@ -46,7 +47,7 @@ public class LoginActivity extends Activity {
 	}
 	
 	public void login(final StackMobUser user) {
-		user.login(new StackMobCallback() {
+		user.login(StackMobOptions.depthOf(2), new StackMobCallback() {
 			
 			@Override
 			public void success(String arg0) {
