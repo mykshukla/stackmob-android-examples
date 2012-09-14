@@ -36,7 +36,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.stackmob.android.sdk.common.StackMobCommon;
+import com.stackmob.android.sdk.common.StackMobAndroid;
 import com.stackmob.pushdemo.R;
 import com.stackmob.sdk.api.StackMob;
 import com.stackmob.sdk.callback.StackMobCallback;
@@ -72,7 +72,7 @@ public class PushDemoActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		StackMobCommon.init(this.getApplicationContext(), StackMob.OAuthVersion.One, 0, "YOUR_API_KEY_HERE", "YOUR_API_SECRET_HERE");
+		StackMobAndroid.init(this.getApplicationContext(), StackMob.OAuthVersion.One, 0, "YOUR_API_KEY_HERE", "YOUR_API_SECRET_HERE");
 		stackmob = StackMob.getStackMob();
 		
 		// Register for GCM Push
@@ -91,10 +91,7 @@ public class PushDemoActivity extends Activity {
     }
     
 	public void loginClick(View v) {
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("username", getUsername());
-		params.put("password", getPassword());
-		stackmob.login(params, standardToastCallback);
+		user.login(standardToastCallback);
 	}
 	
 	public void createUserClick(View v) {
@@ -104,7 +101,6 @@ public class PushDemoActivity extends Activity {
 	
 	public void registerRegTokenClick(View w) {
 		try {
-			final String username = getPushUsername();
 			user.registerForPush(new StackMobPushToken(getRegistrationIDHolder().getID()), standardToastCallback);
 		}
 		catch(	Exception e) {
@@ -149,16 +145,8 @@ public class PushDemoActivity extends Activity {
 		return (EditText)findViewById(R.id.password);
 	}
 	
-	private EditText getPushUsernameField() {
-		return (EditText)findViewById(R.id.push_username);
-	}
-	
 	private String getUsername() {
 		return getUsernameField().getText().toString();
-	}
-	
-	private String getPushUsername() {
-		return getPushUsernameField().getText().toString();
 	}
 	
 	private String getPassword() {

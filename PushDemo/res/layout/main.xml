@@ -57,11 +57,6 @@
     	android:onClick="forceGetRegTokenClick"
     	android:text="Force Get New Registration ID"
     	android:gravity="center"></Button>
-    <EditText
-    	android:layout_height="wrap_content"
-    	android:id="@+id/push_username"
-    	android:text="@string/username_field"
-    	android:layout_width="wrap_content"></EditText>
     <Button
     	android:layout_weight="0.01"
     	android:layout_width="wrap_content"

@@ -1,5 +1,6 @@
 package com.stackmob.taskmob;
 
+import com.stackmob.sdk.api.StackMobOptions;
 import com.stackmob.sdk.exception.StackMobException;
 
 import android.app.ListActivity;
@@ -60,7 +61,7 @@ public class TaskActivity extends ListActivity {
 			Task t = new Task();
 			t.fillFromJson(data.getStringExtra("new_task"));
 			taskList.getTasks().add(t);
-			taskList.saveWithDepth(1);
+			taskList.save(StackMobOptions.depthOf(2));
 			adapter.notifyDataSetChanged();
 		} catch (StackMobException e) {
 		}

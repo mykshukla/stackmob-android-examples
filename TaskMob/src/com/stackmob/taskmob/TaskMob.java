@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.stackmob.taskmob.R;
-import com.stackmob.android.sdk.common.StackMobCommon;
+import com.stackmob.android.sdk.common.StackMobAndroid;
 import com.stackmob.sdk.api.StackMob;
+import com.stackmob.sdk.api.StackMobOptions;
 import com.stackmob.sdk.callback.StackMobCallback;
 import com.stackmob.sdk.callback.StackMobQueryCallback;
 import com.stackmob.sdk.exception.StackMobException;
@@ -36,7 +37,7 @@ public class TaskMob extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		StackMobCommon.init(getApplicationContext(), 0, "5c29caee-71f9-4c64-9cf8-fb10a11841f3");
+		StackMobAndroid.init(getApplicationContext(), 0, "5c29caee-71f9-4c64-9cf8-fb10a11841f3");
 		StackMob.getStackMob().getSession().getLogger().setLogging(true);
 		addTaskListButton = (Button) this.findViewById(R.id.add_tasklist_button);
 		addTaskListName = (TextView) this.findViewById(R.id.add_tasklist_text);
@@ -53,7 +54,7 @@ public class TaskMob extends ListActivity {
 		    	Intent i = new Intent(getApplicationContext(), TaskActivity.class);
 		   
 		    	i.putExtra(TASKLIST_INDEX, pos);
-		    	i.putExtra(TASKLIST_KEY, adapter.getItem(pos).toJsonWithDepth(1));
+		    	i.putExtra(TASKLIST_KEY, adapter.getItem(pos).toJson(StackMobOptions.depthOf(1)));
 		    	startActivityForResult(i, 1);
 		    }
 		});
@@ -94,7 +95,7 @@ public class TaskMob extends ListActivity {
 	}
 
 	private void loadTasks() {
-		user.fetchWithDepth(2, new StackMobCallback() {
+		user.fetch(StackMobOptions.depthOf(2), new StackMobCallback() {
 			
 			@Override
 			public void success(String arg0) {
