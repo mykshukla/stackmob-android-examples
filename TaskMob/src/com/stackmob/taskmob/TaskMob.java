@@ -40,7 +40,7 @@ public class TaskMob extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		StackMobAndroid.init(getApplicationContext(), 0, "5c29caee-71f9-4c64-9cf8-fb10a11841f3");
+		StackMobAndroid.init(getApplicationContext(), 0, "YOUR PUBLIC KEY");
 		StackMob.getStackMob().getSession().getLogger().setLogging(true);
 		addTaskListButton = (Button) this.findViewById(R.id.add_tasklist_button);
 		addTaskListName = (TextView) this.findViewById(R.id.add_tasklist_text);

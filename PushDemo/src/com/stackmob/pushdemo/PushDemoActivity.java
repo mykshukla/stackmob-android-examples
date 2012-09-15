@@ -16,44 +16,29 @@
 
 package com.stackmob.pushdemo;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
-import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gcm.GCMRegistrar;
 import com.stackmob.android.sdk.common.StackMobAndroid;
-import com.stackmob.pushdemo.R;
 import com.stackmob.sdk.api.StackMob;
 import com.stackmob.sdk.callback.StackMobCallback;
 import com.stackmob.sdk.exception.StackMobException;
 import com.stackmob.sdk.model.StackMobUser;
 import com.stackmob.sdk.push.StackMobPushToken;
 
-import com.google.android.gcm.GCMRegistrar;
-import com.inneractive.api.ads.InneractiveAd;
-import com.inneractive.api.ads.InneractiveAd.IaAdType;
-import com.inneractive.api.ads.InneractiveAd.IaOptionalParams;
-
 
 public class PushDemoActivity extends Activity {
 	
 	public static String SENDER_ID = "YOUR_SENDER_ID_HERE";
-	private StackMob stackmob;
 	private StackMobUser user;
 	private static final String TAG = PushDemoActivity.class.getCanonicalName();
 	private final StackMobCallback standardToastCallback = new StackMobCallback() {
@@ -73,7 +58,6 @@ public class PushDemoActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		StackMobAndroid.init(this.getApplicationContext(), StackMob.OAuthVersion.One, 0, "YOUR_API_KEY_HERE", "YOUR_API_SECRET_HERE");
-		stackmob = StackMob.getStackMob();
 		
 		// Register for GCM Push
 		try {
