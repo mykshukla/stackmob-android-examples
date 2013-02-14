@@ -2,7 +2,7 @@ package com.stackmob.gigyademo;
 
 import gigya.LoginUIListener;
 
-import com.gigya.socialize.android.GSAPI;
+import com.gigya.socialize.android.GSAPI;	
 import com.stackmob.android.sdk.common.StackMobAndroid;
 import com.stackmob.sdk.api.StackMob;
 
