@@ -16,6 +16,15 @@ TaskMob/gen
 TaskMob/target
 TaskMob/project.properties
 
+GigyaDemo/bin
+GigyaDemo/.directory
+GigyaDemo/.DS_Store
+GigyaDemo/*.class
+GigyaDemo/*~
+GigyaDemo/gen
+GigyaDemo/target
+GigyaDemo/project.properties
+
 tmp
 *.iws
 *.ipr
